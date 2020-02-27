@@ -1,0 +1,27 @@
+package com.codegym.task.task31.task3107;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+/*
+Null object pattern
+
+*/
+public class Solution {
+    private FileData fileData;
+
+    public Solution(String pathToFile) {
+        Path p = Paths.get(pathToFile);
+        try {
+            fileData = new ConcreteFileData(Files.isHidden(p),Files.isExecutable(p),Files.isDirectory(p),Files.isWritable(p));
+        } catch (IOException e) {
+            fileData = new NullFileData(e);
+        }
+    }
+
+    public FileData getFileData() {
+        return fileData;
+    }
+}
